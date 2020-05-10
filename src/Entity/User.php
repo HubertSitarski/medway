@@ -53,7 +53,6 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
     }
 

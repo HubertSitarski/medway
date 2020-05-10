@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %} name {% endtrans %}</th>
+                <th>{% trans %} quantity {% endtrans %}</th>
+                <th>{% trans %} price {% endtrans %}</th>
+                <th>{% trans %} actions {% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.price }}</td>
+                <td>
+                    <a href="{{ path('add_to_cart', {'id': product.id}) }}">Dodaj do koszyka</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        {{ knp_pagination_render(products) }}
+    </div>
+{% endblock %}

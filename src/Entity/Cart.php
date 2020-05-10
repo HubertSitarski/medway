@@ -22,6 +22,11 @@ class Cart extends BaseEntity
      */
     private $productCarts;
 
+    /**
+     * @ORM\Column(name="session_id", type="string", nullable=true)
+     */
+    private $session;
+
     public function __construct()
     {
         $this->productCarts = new ArrayCollection();
@@ -66,6 +71,18 @@ class Cart extends BaseEntity
                 $productCart->setCart(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSession(): ?string
+    {
+        return $this->session;
+    }
+
+    public function setSession(?string $session): self
+    {
+        $this->session = $session;
 
         return $this;
     }

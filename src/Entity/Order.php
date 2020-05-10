@@ -2,20 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass=OrderRepository::class)
+ * @ORM\Table(name="`order`")
  */
-class Product extends BaseEntity
+class Order extends BaseEntity
 {
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $name;
+    private $user;
 
     /**
      * @ORM\Column(type="integer")
@@ -28,29 +30,23 @@ class Product extends BaseEntity
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProductCart::class, mappedBy="product")
-     */
-    private $productCarts;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ProductOrder::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=ProductOrder::class, mappedBy="orderEntity")
      */
     private $productOrders;
 
     public function __construct()
     {
-        $this->productCarts = new ArrayCollection();
         $this->productOrders = new ArrayCollection();
     }
 
-    public function getName(): ?string
+    public function getUser(): ?User
     {
-        return $this->name;
+        return $this->user;
     }
 
-    public function setName(string $name): self
+    public function setUser(?User $user): self
     {
-        $this->name = $name;
+        $this->user = $user;
 
         return $this;
     }
@@ -80,37 +76,6 @@ class Product extends BaseEntity
     }
 
     /**
-     * @return Collection|ProductCart[]
-     */
-    public function getProductCarts(): Collection
-    {
-        return $this->productCarts;
-    }
-
-    public function addProductCart(ProductCart $productCart): self
-    {
-        if (!$this->productCarts->contains($productCart)) {
-            $this->productCarts[] = $productCart;
-            $productCart->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProductCart(ProductCart $productCart): self
-    {
-        if ($this->productCarts->contains($productCart)) {
-            $this->productCarts->removeElement($productCart);
-            // set the owning side to null (unless already changed)
-            if ($productCart->getProduct() === $this) {
-                $productCart->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|ProductOrder[]
      */
     public function getProductOrders(): Collection
@@ -122,7 +87,7 @@ class Product extends BaseEntity
     {
         if (!$this->productOrders->contains($productOrder)) {
             $this->productOrders[] = $productOrder;
-            $productOrder->setProduct($this);
+            $productOrder->setOrderEntity($this);
         }
 
         return $this;
@@ -133,8 +98,8 @@ class Product extends BaseEntity
         if ($this->productOrders->contains($productOrder)) {
             $this->productOrders->removeElement($productOrder);
             // set the owning side to null (unless already changed)
-            if ($productOrder->getProduct() === $this) {
-                $productOrder->setProduct(null);
+            if ($productOrder->getOrderEntity() === $this) {
+                $productOrder->setOrderEntity(null);
             }
         }
 

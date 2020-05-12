@@ -4,6 +4,7 @@ price: Price
 actions: Actions
 id: Id
 products: Products
+cart: Cart
 add_to_cart: Add to cart
 password: Password
 email: E-mail
@@ -11,3 +12,6 @@ registration: Registration
 register: Register
 login: Sign in
 sign_in: Sign in
+no_records: No records found
+summary: Summary
+delete_from_cart: Delete from cart

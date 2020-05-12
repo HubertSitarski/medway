@@ -4,6 +4,7 @@ price: Cena
 actions: Akcje
 id: Lp.
 products: Produkty
+cart: Koszyk
 add_to_cart: Dodaj do koszyka
 password: Hasło
 email: E-mail
@@ -11,3 +12,6 @@ registration: Rejestracja
 register: Zarejestruj się
 login: Logowanie
 sign_in: Zaloguj się
+no_records: Nie znaleziono danych
+summary: Suma
+delete_from_cart: Usuń z koszyka

@@ -1,18 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{% trans %} cart {% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+    <h1>{% trans %} cart {% endtrans %}</h1>
 
     <table class="table">
         <tbody>
         <tr>
-            <th>Name</th>
+            <th>{% trans %} name {% endtrans %}</th>
+            <th>{% trans %} actions {% endtrans %}</th>
         </tr>
         {% for productCart in cart.productCarts %}
             <tr>
                 <td>{{ productCart.product.name }}</td>
+                <td>
+                    <a href="{{ path('delete_from_cart', {'id': productCart.product.id}) }}">{% trans %} delete_from_cart {% endtrans %}</a>
+                </td>
             </tr>
         {% else %}
             <tr>
@@ -21,4 +25,5 @@
         {% endfor %}
         </tbody>
     </table>
+    <p><b>{% trans %} summary {% endtrans %}</b>: {{ cart.getFullPrice()|number_format(2, ',', ' ') }} PLN</p>
 {% endblock %}

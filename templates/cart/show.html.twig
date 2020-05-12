@@ -10,9 +10,9 @@
         <tr>
             <th>Name</th>
         </tr>
-        {% for product in cart %}
+        {% for productCart in cart.productCarts %}
             <tr>
-                <td>{{ product.name }}</td>
+                <td>{{ productCart.product.name }}</td>
             </tr>
         {% else %}
             <tr>

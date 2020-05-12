@@ -6,7 +6,14 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-    {% include 'locale.html.twig' %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <p>
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endfor %}
+        {% include 'locale.html.twig' %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

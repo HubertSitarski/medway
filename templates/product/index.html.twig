@@ -19,14 +19,14 @@
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.quantity }}</td>
-                <td>{{ product.price|number_format(2, ',', ' ') }}</td>
+                <td>{{ product.price|number_format(2, ',', ' ') }} PLN</td>
                 <td>
                     <a href="{{ path('add_to_cart', {'id': product.id}) }}">{% trans %} add_to_cart {% endtrans %}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{% trans %} no_records {% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -86,4 +86,16 @@ class Cart extends BaseEntity
 
         return $this;
     }
+
+    public function getFullPrice(): float
+    {
+        $summary = 0.0;
+
+        /** @var ProductCart $productCart */
+        foreach ($this->productCarts as $productCart) {
+            $summary += $productCart->getProduct()->getPrice();
+        }
+
+        return $summary;
+    }
 }

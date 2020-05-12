@@ -28,10 +28,9 @@ class ProductController extends AbstractController
      */
     public function index(
         ProductRepository $productRepository,
-        string $page,
-    Request $request
+        string $page
     ): Response {
-        $products = $this->paginator->paginate($productRepository->findAll(), $page, 4);
+        $products = $this->paginator->paginate($productRepository->findAvailable(), $page, 4);
 
         return $this->render('product/index.html.twig', [
             'products' => $products,

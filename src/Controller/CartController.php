@@ -42,13 +42,22 @@ class CartController extends AbstractController
      */
     public function addToCart(string $id): RedirectResponse
     {
-        if (!$this->getUser()) {
-            $sessionId = $this->sessionService->getCartSessionId();
-            $cart = $this->cartRepository->findOneBy(['session' => $sessionId]) ?? $this->cartService->createCart($sessionId);
-            $this->cartService->addProductCart($cart, $id);
-        }
+        $cart = $this->cartService->findCart($this->sessionService->getCartSessionId(), $this->getUser());
+        $this->cartService->addProductCart($cart, $id);
 
         $this->addFlash('success', 'Dodano produkt');
+        return $this->redirectToRoute('cart_show');
+    }
+
+    /**
+     * @Route("/product/{id}/delete", name="delete_from_cart")
+     */
+    public function deleteFromCart(string $id): RedirectResponse
+    {
+        $cart = $this->cartService->findCart($this->sessionService->getCartSessionId(), $this->getUser());
+        $this->cartService->removeProductCart($cart, $id);
+
+        $this->addFlash('success', 'Usunięto produkt');
         return $this->redirectToRoute('cart_show');
     }
 
@@ -57,13 +66,7 @@ class CartController extends AbstractController
      */
     public function show(): Response
     {
-        if (!$this->getUser()) {
-            $sessionId = $this->sessionService->getCartSessionId();
-            $cart = $this
-                    ->cartRepository
-                    ->findOneBy(['session' => $sessionId]) ?? $this->cartService->createCart($sessionId)
-            ;
-        }
+        $cart = $this->cartService->findCart($this->sessionService->getCartSessionId(), $this->getUser());
 
         return $this->render('cart/show.html.twig', [
             'cart' => $cart,

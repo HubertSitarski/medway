@@ -1,0 +1,13 @@
+name: Name
+quantity: Quantity
+price: Price
+actions: Actions
+id: Id
+products: Products
+add_to_cart: Add to cart
+password: Password
+email: E-mail
+registration: Registration
+register: Register
+login: Sign in
+sign_in: Sign in

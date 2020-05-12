@@ -51,6 +51,11 @@ class User implements UserInterface
      */
     private $cart;
 
+    /**
+     * @var string
+     */
+    private $plainPassword = '';
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -196,6 +201,18 @@ class User implements UserInterface
         if ($cart->getUser() !== $newUser) {
             $cart->setUser($newUser);
         }
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

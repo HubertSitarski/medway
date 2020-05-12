@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} registration {% endtrans %}{% endblock %}
+
+{% block body %}
+    {{ form_start(registrationForm, { 'attr': {'class': 'form-register'} }) }}
+    <h1 class="h3 mb-3 font-weight-normal">{% trans %} registration {% endtrans %}</h1>
+
+    {{ form_row(registrationForm.email, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(registrationForm.plainPassword, { 'attr': {'class': 'form-control'} }) }}
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        {% trans %} register {% endtrans %}
+    </button>
+    <br>
+    <br>
+    <a href="{{ path('app_login') }}">{% trans %} login {% endtrans %}</a>
+    {{ form_end(registrationForm) }}
+{% endblock %}

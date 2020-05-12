@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\ProductCart;
 use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
+use App\Service\CartService;
+use App\Service\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,13 +22,19 @@ class CartController extends AbstractController
 {
     private $productRepository;
     private $cartRepository;
-    private $session;
+    private $cartService;
+    private $sessionService;
 
-    public function __construct(ProductRepository $productRepository, SessionInterface $session, CartRepository $cartRepository)
-    {
+    public function __construct(
+        ProductRepository $productRepository,
+        CartRepository $cartRepository,
+        SessionService $sessionService,
+        CartService $cartService
+    ) {
         $this->productRepository = $productRepository;
         $this->cartRepository = $cartRepository;
-        $this->session = $session;
+        $this->sessionService = $sessionService;
+        $this->cartService = $cartService;
     }
 
     /**
@@ -35,14 +43,9 @@ class CartController extends AbstractController
     public function addToCart(string $id): RedirectResponse
     {
         if (!$this->getUser()) {
-            if (!$this->session->get('cart_session_id')) {
-                $this->session->set('cart_session_id', md5(uniqid(rand(), true)));
-            }
-
-            if (($cart = $this->cartRepository->findOneBy(['session_id' => $this->session->get('cart_session_id')]))) {
-            }
-
-            $sessionId = $this->session->get('cart_session_id');
+            $sessionId = $this->sessionService->getCartSessionId();
+            $cart = $this->cartRepository->findOneBy(['session' => $sessionId]) ?? $this->cartService->createCart($sessionId);
+            $this->cartService->addProductCart($cart, $id);
         }
 
         $this->addFlash('success', 'Dodano produkt');
@@ -54,8 +57,16 @@ class CartController extends AbstractController
      */
     public function show(): Response
     {
+        if (!$this->getUser()) {
+            $sessionId = $this->sessionService->getCartSessionId();
+            $cart = $this
+                    ->cartRepository
+                    ->findOneBy(['session' => $sessionId]) ?? $this->cartService->createCart($sessionId)
+            ;
+        }
+
         return $this->render('cart/show.html.twig', [
-            'cart' => $this->session->get('cart'),
+            'cart' => $cart,
         ]);
     }
 }

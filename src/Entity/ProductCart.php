@@ -28,7 +28,7 @@ class ProductCart extends BaseEntity
     private $quantity;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\Column(type="decimal", scale=2)
      */
     private $price;
 

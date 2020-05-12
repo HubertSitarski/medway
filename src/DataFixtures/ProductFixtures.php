@@ -25,7 +25,7 @@ class ProductFixtures extends Fixture
 
             $product
                 ->setName('Produkt ' . $i)
-                ->setPrice($this->faker->randomFloat(2, 10, 100))
+                ->setPrice($this->faker->randomFloat(2, 10, 10000))
                 ->setQuantity($this->faker->numberBetween(10, 100))
                 ;
 

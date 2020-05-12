@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.quantity }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price|number_format(2, ',', ' ') }}</td>
                 <td>
                     <a href="{{ path('add_to_cart', {'id': product.id}) }}">Dodaj do koszyka</a>
                 </td>

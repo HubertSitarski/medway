@@ -13,6 +13,13 @@
                 </p>
             {% endfor %}
         {% endfor %}
+        {% block nav %}
+            <a href="{{ path('product_index', {'page': 1}) }}">Produkty</a>
+            <a href="{{ path('cart_show') }}">Koszyk</a>
+            <a href="{{ path('app_login') }}">Logowanie</a>
+            <a href="{{ path('app_logout') }}">Wyloguj</a>
+        {% endblock %}
+        <br><br>
         {% include 'locale.html.twig' %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

@@ -27,3 +27,5 @@ nip: NIP
 phone: Numer telefonu
 order: Zamówienie
 place_order: Złóż zamówienie
+order_placed: Zamówienie złożone
+order_placed_message: Dziękujemy za złożenie zamówienia. W załączniku znajdziesz podsumowanie transakcji

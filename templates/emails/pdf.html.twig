@@ -1,0 +1,19 @@
+{% block body %}
+    <h1>{% trans %} order {% endtrans %}</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>{% trans %} name {% endtrans %}</th>
+            <th>{% trans %} price {% endtrans %}</th>
+        </tr>
+        {% for productOrder in order.productOrders %}
+            <tr>
+                <td>{{ productOrder.product.name }}</td>
+                <td>{{ productOrder.product.price|number_format(2, ',', ' ') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p><b>{% trans %} summary {% endtrans %}</b>: {{ order.getFullPrice()|number_format(2, ',', ' ') }} PLN</p>
+{% endblock %}

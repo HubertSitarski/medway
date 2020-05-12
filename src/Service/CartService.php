@@ -9,6 +9,7 @@ use App\Repository\CartRepository;
 use App\Repository\ProductCartRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class CartService
@@ -17,22 +18,30 @@ class CartService
     private $productRepository;
     private $entityManager;
     private $productCartRepository;
+    private $sessionService;
+    private $tokenStorage;
 
     public function __construct(
         CartRepository $cartRepository,
         ProductRepository $productRepository,
         EntityManagerInterface $entityManager,
-        ProductCartRepository $productCartRepository
+        ProductCartRepository $productCartRepository,
+        SessionService $sessionService,
+        TokenStorageInterface $tokenStorage
     ) {
         $this->cartRepository = $cartRepository;
         $this->productRepository = $productRepository;
         $this->entityManager = $entityManager;
         $this->productCartRepository = $productCartRepository;
+        $this->sessionService = $sessionService;
+        $this->tokenStorage = $tokenStorage;
     }
 
-    public function findCart(?string $sessionId, ?UserInterface $user)
+    public function findCart(): Cart
     {
-        if ($user) {
+        $user = $this->tokenStorage->getToken()->getUser();
+        $sessionId = $this->sessionService->getCartSessionId();
+        if ($user && $user != 'anon.') {
             $cart = $this
                     ->cartRepository
                     ->findOneBy(['user' => $user]) ?? $this->createCart(null, $user)
@@ -92,5 +101,14 @@ class CartService
         $this->entityManager->flush();
 
         return $cart;
+    }
+
+    public function removeCart(Cart $cart)
+    {
+        foreach ($cart->getProductCarts() as $productCart) {
+            $this->entityManager->remove($productCart);
+        }
+
+        $this->entityManager->remove($cart);
     }
 }

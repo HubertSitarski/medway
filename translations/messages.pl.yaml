@@ -15,3 +15,15 @@ sign_in: Zaloguj się
 no_records: Nie znaleziono danych
 summary: Suma
 delete_from_cart: Usuń z koszyka
+not_blank_error: Pole nie może być puste
+email_error: Pole nie jest poprawnym adresem e-mail
+phone_error: Numer telefonu musi mieć 9 cyfr
+first_name: Imię
+last_name: Nazwisko
+address: Ulica
+city: Miasto
+postcode: Kod pocztowy
+nip: NIP
+phone: Numer telefonu
+order: Zamówienie
+place_order: Złóż zamówienie

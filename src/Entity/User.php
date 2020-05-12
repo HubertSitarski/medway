@@ -37,11 +37,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToOne(targetEntity=Address::class, mappedBy="user", cascade={"persist", "remove"})
-     */
-    private $address;
-
-    /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
      */
     private $orders;
@@ -127,7 +122,6 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
@@ -135,25 +129,7 @@ class User implements UserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
-    public function getAddress(): ?Address
-    {
-        return $this->address;
-    }
-
-    public function setAddress(Address $address): self
-    {
-        $this->address = $address;
-
-        // set the owning side of the relation if necessary
-        if ($address->getUser() !== $this) {
-            $address->setUser($this);
-        }
-
-        return $this;
+         $this->plainPassword = null;
     }
 
     /**

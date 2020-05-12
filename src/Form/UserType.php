@@ -22,7 +22,7 @@ class UserType extends AbstractType
                 'label' => 'email',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Wprowadź hasło',
+                        'message' => 'Wprowadź email',
                     ]),
                     new Email([
                         'message' => 'Pole musi być poprawnym adresem e-mail'

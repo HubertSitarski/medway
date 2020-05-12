@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\ProductCart;
 use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
 use App\Service\CartService;
@@ -42,7 +41,7 @@ class CartController extends AbstractController
      */
     public function addToCart(string $id): RedirectResponse
     {
-        $cart = $this->cartService->findCart($this->sessionService->getCartSessionId(), $this->getUser());
+        $cart = $this->cartService->findCart();
         $this->cartService->addProductCart($cart, $id);
 
         $this->addFlash('success', 'Dodano produkt');
@@ -54,7 +53,7 @@ class CartController extends AbstractController
      */
     public function deleteFromCart(string $id): RedirectResponse
     {
-        $cart = $this->cartService->findCart($this->sessionService->getCartSessionId(), $this->getUser());
+        $cart = $this->cartService->findCart();
         $this->cartService->removeProductCart($cart, $id);
 
         $this->addFlash('success', 'Usunięto produkt');
@@ -66,7 +65,7 @@ class CartController extends AbstractController
      */
     public function show(): Response
     {
-        $cart = $this->cartService->findCart($this->sessionService->getCartSessionId(), $this->getUser());
+        $cart = $this->cartService->findCart();
 
         return $this->render('cart/show.html.twig', [
             'cart' => $cart,

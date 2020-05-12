@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Cart extends BaseEntity
 {
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="cart", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="cart")
      */
     private $user;
 

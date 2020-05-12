@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} order {% endtrans %}{% endblock %}
+
+{% block body %}
+    {{ form_start(orderForm, { 'attr': {'class': 'form-register'} }) }}
+    <h1 class="h3 mb-3 font-weight-normal">{% trans %} order {% endtrans %}</h1>
+
+    {{ form_row(orderForm.firstName, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.lastName, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.address, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.city, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.postcode, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.phone, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.email, { 'attr': {'class': 'form-control'} }) }}
+    {{ form_row(orderForm.nip, { 'attr': {'class': 'form-control'} }) }}
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        {% trans %} place_order {% endtrans %}
+    </button>
+    <br>
+    <br>
+    {{ form_end(orderForm) }}
+{% endblock %}

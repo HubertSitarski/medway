@@ -223,4 +223,16 @@ class Order extends BaseEntity
 
         return $this;
     }
+
+    public function getFullPrice(): float
+    {
+        $summary = 0.0;
+
+        /** @var ProductOrder $productOrder */
+        foreach ($this->productOrders as $productOrder) {
+            $summary += $productOrder->getProduct()->getPrice();
+        }
+
+        return $summary;
+    }
 }

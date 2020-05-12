@@ -27,3 +27,5 @@ nip: NIP
 phone: Phone number
 order: Order
 place_order: Place order
+order_placed: Order placed
+order_placed_message: Thank you for placing order. Your find your summary in attachments

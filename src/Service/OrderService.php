@@ -7,22 +7,24 @@ use App\Entity\ProductOrder;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class OrderService
 {
     private $cartService;
     private $entityManager;
     private $tokenStorage;
+    private $mailService;
 
     public function __construct(
         CartService $cartService,
         EntityManagerInterface $entityManager,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        MailService $mailService
     ) {
         $this->cartService = $cartService;
         $this->entityManager = $entityManager;
         $this->tokenStorage = $tokenStorage;
+        $this->mailService = $mailService;
     }
 
     public function placeOrder(Order $order)
@@ -55,5 +57,7 @@ class OrderService
         $this->entityManager->persist($order);
         $this->cartService->removeCart($cart);
         $this->entityManager->flush();
+
+        $this->mailService->sendOrderMail($order);
     }
 }

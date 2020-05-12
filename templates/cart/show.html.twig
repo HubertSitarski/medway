@@ -20,10 +20,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">{% trans %} no_records {% endtrans %}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     <p><b>{% trans %} summary {% endtrans %}</b>: {{ cart.getFullPrice()|number_format(2, ',', ' ') }} PLN</p>
+    <br>
+    <a href="{{ path('place_order') }}">{% trans %} place_order {% endtrans %}</a>
 {% endblock %}

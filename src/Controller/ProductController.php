@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/product")
+ * @Route("/products")
  */
 class ProductController extends AbstractController
 {
@@ -32,16 +32,6 @@ class ProductController extends AbstractController
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
-     */
-    public function show(Product $product): Response
-    {
-        return $this->render('product/show.html.twig', [
-            'product' => $product,
         ]);
     }
 }

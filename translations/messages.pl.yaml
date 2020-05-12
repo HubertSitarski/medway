@@ -2,4 +2,12 @@ name: Nazwa
 quantity: Ilość
 price: Cena
 actions: Akcje
-Id: Lp.
+id: Lp.
+products: Produkty
+add_to_cart: Dodaj do koszyka
+password: Hasło
+email: E-mail
+registration: Rejestracja
+register: Zarejestruj się
+login: Logowanie
+sign_in: Zaloguj się
